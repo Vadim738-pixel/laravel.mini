@@ -8,12 +8,12 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index() {
-      //  $post = Post::find(1);
+        $post = Post::find(1);
        // dump($post);
-       // dd($post);
-       // dd($post->title);
+      // dd($post);
+         dd($post->title);
 
-        /*
+/*
 
         $posts = Post::all();
         foreach ($posts as $post) {
@@ -21,8 +21,8 @@ class PostController extends Controller
         }
         dd('end');
 
-        */
 
+*/
 
         /*
 
@@ -35,9 +35,15 @@ class PostController extends Controller
         */
 
 
-        $post = Post::where('is_published', 0)->first();
+        /*
+
+        $post = Post::where('is_published', 1)->first();
             dump($post->title);
             dd('end');
+
+            */
+
+
     }
 
     public function create()
@@ -89,13 +95,11 @@ class PostController extends Controller
     {
         // dd('delete page');
 
-
-        /*
-
+/*
         $post = Post::find(5);
         $post->delete();
         dd('deleted');
-        */
+    }  */
 
         $post = Post::withTrashed()->find(5);
         $post->restore();
@@ -131,7 +135,7 @@ class PostController extends Controller
 
     public function updateOrCreate ()
     {
-        $anatherPost =[
+        $anotherPost =[
 
                 'title' => 'updatedorcreate some post',
                 'content' => 'updatedorcreate some content',
