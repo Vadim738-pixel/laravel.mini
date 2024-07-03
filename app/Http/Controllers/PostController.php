@@ -8,16 +8,21 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index() {
-        $post = Post::find(1);
-       // dump($post);
-      // dd($post);
-         dd($post->title);
+        // $posts = Post::find(1);
+       // dump($posts);
+      // dd($posts);
+       //  dd($posts->title);
+
+       $posts = Post::all();
+      //  dd($posts);
+       // dd('end');
+        return view('posts.index', compact('posts'));
 
 /*
 
         $posts = Post::all();
-        foreach ($posts as $post) {
-            dump($post->title);
+        foreach ($posts as $posts) {
+            dump($posts->title);
         }
         dd('end');
 
@@ -27,8 +32,8 @@ class PostController extends Controller
         /*
 
         $posts = Post::where('is_published', 1)->get();
-        foreach ($posts as $post) {
-            dump($post->title);
+        foreach ($posts as $posts) {
+            dump($posts->title);
         }
         dd('end');
 
@@ -37,8 +42,8 @@ class PostController extends Controller
 
         /*
 
-        $post = Post::where('is_published', 1)->first();
-            dump($post->title);
+        $posts = Post::where('is_published', 1)->first();
+            dump($posts->title);
             dd('end');
 
             */
@@ -49,55 +54,67 @@ class PostController extends Controller
     public function create()
     {
 
-        $postsArr =[
-            [
-                'title' =>'title of post from phpstorm',
-                'content' =>'some interesting content',
-                'image' =>'imageblabla.jpg',
-                'likes' => 400,
-                'is_published' => 1,
-            ],
-            [
-                'title' =>'another title of post from phpstorm',
-                'content' =>'another some interesting content',
-                'image' =>'another imageblabla.jpg',
-                'likes' => 600,
-                'is_published' => 1,
-            ],
-
-        ];
-
-        Post::create([
-            'title' => 'another title of post from phpstorm',
-            'content' => 'another some interesting content',
-            'image' => 'another imageblabla.jpg',
-            'likes' => 600,
-            'is_published' => 1,
-        ]);
-        dd('created');
+        return view('posts.create');
     }
 
-    public function update()
+
+    public function store()
     {
-        $post = Post::find(6);
-       //  dd($post->title);
-
-        $post->update([
-            'title' => 'updated',
-            'content' => 'updated',
-            'image' => 'updated',
-            'likes' => 1000,
-            'is_published' => 1,
+        $data = request()->validate([
+            'title' => 'string',
+            'content' => 'string',
+            'image' => 'string',
         ]);
-        dd('update');
+        Post::create($data);
+        return redirect()->route('posts.index');
     }
+
+
+/*
+    public function show($id)
+    {
+        $post = Post::findOrFail($id);
+        dd($post->title);
+    }
+
+*/
+
+    public function show(Post $post)
+    {
+        return view('posts.show', compact('post'));
+    }
+
+
+    public function edit(Post $post)
+    {
+       // dd($post->title);
+        return view('posts.edit', compact('post'));
+    }
+
+
+
+    public function update(Post $post)
+    {
+        $data = request()->validate([
+            'title' => 'string',
+            'content' => 'string',
+            'image' => 'string',
+        ]);
+
+        $post->update($data);
+        return redirect()->route('posts.show', $post->id);
+
+    }
+
+
+
     public function delete()
     {
         // dd('delete page');
 
 /*
-        $post = Post::find(5);
-        $post->delete();
+        $posts = Post::find(5);
+        $posts->delete();
         dd('deleted');
     }  */
 
@@ -106,6 +123,23 @@ class PostController extends Controller
         dd('deleted');
     }
 
+
+    public function destroy(Post $post)
+    {
+        $post->Delete();
+        return redirect()->route('posts.index');
+    }
+
+
+
+
+
+
+
+
+
+
+
     // firstOrCreate
     // updateOrCreate
 
@@ -113,7 +147,7 @@ class PostController extends Controller
     {
         $anotherPost =[
 
-            'title' => 'some post',
+            'title' => 'some posts',
             'content' => 'some content',
             'image' => 'some imageblabla.jpg',
             'likes' => 50000,
@@ -137,17 +171,17 @@ class PostController extends Controller
     {
         $anotherPost =[
 
-                'title' => 'updatedorcreate some post',
+                'title' => 'updatedorcreate some posts',
                 'content' => 'updatedorcreate some content',
                 'image' => 'updatedorcreate some imageblabla.jpg',
                 'likes' => 500,
                 'is_published' => 0,
         ];
         $post = Post::updateorCreate([
-            'title' => 'some not post',
+            'title' => 'some not posts',
         ],[
 
-            'title' => 'updatedorcreate not some post',
+            'title' => 'updatedorcreate not some posts',
             'content' => 'updatedorcreate not some content',
             'image' => 'updatedorcreate some not imageblabla.jpg',
             'likes' => 500,
