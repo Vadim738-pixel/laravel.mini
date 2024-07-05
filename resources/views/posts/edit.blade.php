@@ -53,6 +53,7 @@
             </div>
 
 
+
             <div class="form-group">
                 <label for="tags">Tags</label>
                 <select multiple class="form-control" id="tags" >
@@ -73,5 +74,4 @@
     </div>
 
 @endsection
-
 
