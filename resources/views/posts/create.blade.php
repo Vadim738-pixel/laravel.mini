@@ -36,6 +36,19 @@
                 <label> </label>
             </div>
 
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select multiple class="form-control" id="category" name="category_id">
+                    @foreach($categories as $category)
+                    <option value="{{$category->id}}">{{$category->title}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label> </label>
+            </div>
+
 
             <button type="submit" class="btn btn-primary">Create</button>
         </form>

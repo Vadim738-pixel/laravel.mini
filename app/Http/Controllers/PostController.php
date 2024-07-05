@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\category;
 use App\Models\Post;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -14,9 +16,47 @@ class PostController extends Controller
        //  dd($posts->title);
 
        $posts = Post::all();
-      //  dd($posts);
+       //  dd($posts);
        // dd('end');
-        return view('posts.index', compact('posts'));
+/*
+        $categories = category::all();
+        dd($categories);
+
+      */
+
+
+        /*
+        $category = category::find(1);
+        dd($category->title);
+        */
+
+/*
+        $category = category::find(1);
+        $posts = Post::where('category_id', $category->id)->get();
+        dd($posts);
+*/
+     /*
+        $category = category::find(1);
+        dd($category->posts);
+    */
+
+        /*
+        $category = category::find(1);
+        $posts = Post::find('1');
+        //dd($posts->category);
+        dd($posts->tags);
+     */
+
+        /*
+        $posts = Post::find('1');
+        $tag = Tag::find(1);
+        dd($tag->posts);
+         */
+
+
+       return view('posts.index', compact('posts'));
+
+
 
 /*
 
@@ -53,8 +93,9 @@ class PostController extends Controller
 
     public function create()
     {
-
-        return view('posts.create');
+        $categories = category::all();
+        $tags = Tag::all();
+        return view('posts.create', compact('categories' ,   'tags'  ));
     }
 
 
@@ -64,7 +105,12 @@ class PostController extends Controller
             'title' => 'string',
             'content' => 'string',
             'image' => 'string',
+            'category_id' => ' ',
+
         ]);
+
+                   //dd($data);
+
         Post::create($data);
         return redirect()->route('posts.index');
     }
@@ -87,8 +133,10 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        $categories = category::all();
        // dd($post->title);
-        return view('posts.edit', compact('post'));
+        return view('posts.edit', compact('post','categories'));
+
     }
 
 
@@ -99,6 +147,7 @@ class PostController extends Controller
             'title' => 'string',
             'content' => 'string',
             'image' => 'string',
+            'category_id' => ' ',
         ]);
 
         $post->update($data);
