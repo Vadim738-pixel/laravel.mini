@@ -26,6 +26,7 @@ class CreatePostsTable extends Migration
 
             $table->unsignedBigInteger('category_id');
 
+
         });
     }
 

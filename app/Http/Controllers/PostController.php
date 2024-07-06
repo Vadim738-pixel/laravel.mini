@@ -10,13 +10,17 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
     public function index() {
-        // $posts = Post::find(1);
+
+
+         $posts = Post::all();
+
        // dump($posts);
       // dd($posts);
        //  dd($posts->title);
 
-       $posts = Post::all();
-       //  dd($posts);
+       $category = category::find(1);
+       //$tag = Tag::find(1);
+      //  dd($tag->posts);
        // dd('end');
 /*
         $categories = category::all();
@@ -47,11 +51,11 @@ class PostController extends Controller
         dd($posts->tags);
      */
 
-        /*
-        $posts = Post::find('1');
-        $tag = Tag::find(1);
-        dd($tag->posts);
-         */
+
+       // $posts = Post::find('1');
+       // $tag = Tag::find(1);
+       // dd($posts->tags);
+
 
 
        return view('posts.index', compact('posts'));
