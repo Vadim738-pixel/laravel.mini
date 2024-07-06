@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\category;
 use App\Models\Post;
+use App\Models\PostTag;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -95,23 +96,36 @@ class PostController extends Controller
     {
         $categories = category::all();
         $tags = Tag::all();
-        return view('posts.create', compact('categories' ,   'tags'  ));
+
+        return view('posts.create', compact('categories' ,   'tags' ));
     }
 
 
     public function store()
     {
         $data = request()->validate([
-            'title' => 'string',
-            'content' => 'string',
-            'image' => 'string',
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'image' => 'required|string',
             'category_id' => ' ',
-
+            'tags' => '',
         ]);
+         $tags = $data['tags'];
+         unset($data['tags']);
+         // dd($tags, $data);
 
-                   //dd($data);
+       $post = Post::create($data);
 
-        Post::create($data);
+
+  /*   foreach ($tags as $tag) {
+           PostTag::firstOrCreate([
+               'tag_id' => $tag,
+               'post_id' => $post->id,
+           ]);
+       }         */
+
+        $post->tags()->attach($tags);
+
         return redirect()->route('posts.index');
     }
 
@@ -134,8 +148,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = category::all();
+        $tags = Tag::all();
        // dd($post->title);
-        return view('posts.edit', compact('post','categories'));
+        return view('posts.edit', compact('post','categories', 'tags'));
 
     }
 
@@ -148,9 +163,13 @@ class PostController extends Controller
             'content' => 'string',
             'image' => 'string',
             'category_id' => ' ',
+            'tags' => '',
         ]);
+        $tags = $data['tags'];
+        unset($data['tags']);
 
         $post->update($data);
+        $post->tags()->sync($tags);
         return redirect()->route('posts.show', $post->id);
 
     }
@@ -178,6 +197,16 @@ class PostController extends Controller
         $post->Delete();
         return redirect()->route('posts.index');
     }
+
+
+
+
+
+
+
+
+
+
 
 
 
