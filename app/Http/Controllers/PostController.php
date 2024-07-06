@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\category;
 use App\Models\Post;
-use App\Models\PostTag;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -110,7 +109,7 @@ class PostController extends Controller
             'category_id' => ' ',
             'tags' => '',
         ]);
-         $tags = $data['tags'];
+          $tags = $data['tags'];
          unset($data['tags']);
          // dd($tags, $data);
 
