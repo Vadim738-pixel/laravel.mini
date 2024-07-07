@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\category;
 use App\Models\Post;
-use App\Models\PostTag;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
     public function index() {
+<<<<<<< HEAD
         // $posts = Post::find(1);
         // dump($posts);
         // dd($posts);
@@ -22,6 +22,23 @@ class PostController extends Controller
         /*
                 $categories = category::all();
                 dd($categories);
+=======
+
+
+         $posts = Post::all();
+
+       // dump($posts);
+      // dd($posts);
+       //  dd($posts->title);
+
+       $category = category::find(1);
+       //$tag = Tag::find(1);
+      //  dd($tag->posts);
+       // dd('end');
+/*
+        $categories = category::all();
+        dd($categories);
+>>>>>>> b665ff5aea2ed05114adb7b32bd6134ad68f38a9
 
               */
 
@@ -48,11 +65,11 @@ class PostController extends Controller
         dd($posts->tags);
      */
 
-        /*
-        $posts = Post::find('1');
-        $tag = Tag::find(1);
-        dd($tag->posts);
-         */
+
+       // $posts = Post::find('1');
+       // $tag = Tag::find(1);
+       // dd($posts->tags);
+
 
 
         return view('posts.index', compact('posts'));
@@ -110,9 +127,15 @@ class PostController extends Controller
             'category_id' => ' ',
             'tags' => '',
         ]);
+<<<<<<< HEAD
         $tags = $data['tags'];
         unset($data['tags']);
         // dd($tags, $data);
+=======
+          $tags = $data['tags'];
+         unset($data['tags']);
+         // dd($tags, $data);
+>>>>>>> b665ff5aea2ed05114adb7b32bd6134ad68f38a9
 
         $post = Post::create($data);
 
