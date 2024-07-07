@@ -11,7 +11,7 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
 
-   // public $someProperty;
+    // public $someProperty;
 
     protected $table = 'posts';
     protected $guarded = [];

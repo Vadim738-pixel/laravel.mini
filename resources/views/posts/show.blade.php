@@ -1,5 +1,10 @@
 @extends('layouts.main')
 @section('content')
+
+    <div class="form-group">
+        <label> </label>
+    </div>
+
     <div>
 
             <div>{{$post->id}}.  {{$post->title}}</div>
@@ -7,8 +12,16 @@
 
     </div>
 
+    <div class="form-group">
+        <label> </label>
+    </div>
+
     <div>
         <a href="{{route('posts.edit', $post->id)}}">Edit</a>
+    </div>
+
+    <div class="form-group">
+        <label> </label>
     </div>
 
     <div>
@@ -18,6 +31,10 @@
             <input type="submit" value="delete" class="btn btn-danger">
         </form>
 
+    </div>
+
+    <div class="form-group">
+        <label> </label>
     </div>
 
     <div>
