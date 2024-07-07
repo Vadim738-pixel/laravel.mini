@@ -17,6 +17,7 @@ class EditController extends Controller
         $categories = category::all();
         $tags = Tag::all();
         // dd($post->title);
+
         return view('posts.edit', compact('post','categories', 'tags'));
 
 
